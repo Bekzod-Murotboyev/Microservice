@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: courier-service
+  profiles:
+    active:
+      default
+  cloud:
+    config:
+      uri: http://localhost:8000
+

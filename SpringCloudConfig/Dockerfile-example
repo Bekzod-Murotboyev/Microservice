@@ -1,0 +1,9 @@
+FROM openjdk:17-jdk-slim
+RUN mkdir -p /usr/local/${ARTIFACT_NAME}$
+ADD ${ARTIFACT_NAME}$.jar /usr/local/${ARTIFACT_NAME}$/
+EXPOSE ${SERVER_PORT}$
+ENTRYPOINT ["java", \
+           "-Djava.security.egd=file:/dev/./urandom", \
+           "-Dserver.port=${SERVER_PORT}$", \
+           "-jar", \
+           "/usr/local/${ARTIFACT_NAME}$/${ARTIFACT_NAME}$.jar"]

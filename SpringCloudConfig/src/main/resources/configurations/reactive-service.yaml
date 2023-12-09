@@ -1,0 +1,13 @@
+server:
+  port: 8000
+
+spring:
+  r2dbc:
+    url: r2dbc:h2:file:///./data/db
+    username: root
+    password: 5939523
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+  sql:
+    init:
+      mode: always

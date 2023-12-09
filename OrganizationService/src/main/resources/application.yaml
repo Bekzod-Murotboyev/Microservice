@@ -1,0 +1,57 @@
+#server:
+#  port: 8010
+#
+#spring:
+#  #  ---
+#  application:
+#    name: organization-service
+#  #  ---
+#  datasource:
+#    url: jdbc:h2:file:./.data/${spring.application.name}-db
+#    username: root
+#    password: 5939523
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    database-platform: org.hibernate.dialect.H2Dialect
+#  sql:
+#    init:
+#      mode: always
+#
+#  security:
+#    oauth2:
+#      resource-server:
+#        jwt:
+#          issuer-uri: http://localhost:8003
+#
+#          # PERMITTED APPLICATION IDENTIFIERS (AUDIENCES)
+#          audiences:
+#            - ${spring.application.name}
+#            - courier-service
+#
+#  kafka:
+#    client-id: ${spring.application.name}-trace
+#    bootstrap-servers: localhost:9000
+#    producer:
+#      key-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
+#      value-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
+#
+#logging:
+#  pattern:
+#    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
+#
+#management:
+#  tracing:
+#    sampling:
+#      probability: 1.0
+#    enabled: false
+#  zipkin:
+#    tracing:
+#      endpoint: http://localhost:8004/api/v2/spans
+#      kafka-sender:
+#        enabled: false
+#  endpoints:
+#    web:
+#      base-path: /actuator
+#      exposure:
+#        include: "*"

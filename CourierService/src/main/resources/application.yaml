@@ -1,0 +1,94 @@
+#server:
+#  port: 8011
+#
+#spring:
+#  # ----
+#  application:
+#    name: courier-service
+#  # ----
+#  datasource:
+#    url: jdbc:h2:file:./.data/${spring.application.name}-db
+#    username: root
+#    password: 5939523
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    database-platform: org.hibernate.dialect.H2Dialect
+#  sql:
+#    init:
+#      mode: always
+#
+#  security:
+#    oauth2:
+#      resource-server:
+#        jwt:
+#          issuer-uri: http://localhost:8003
+#
+#          # PERMITTED APPLICATION IDENTIFIERS (AUDIENCES)
+#          audiences:
+#            - ${spring.application.name}
+#      client:
+#        registration:
+#          courier-service:
+#            provider: auth-service
+#            client-id: ${spring.application.name}
+#            client-secret: ${spring.application.name}-secret
+#            client-authentication-method: client_secret_basic
+#            authorization-grant-type: client_credentials
+#        provider:
+#          auth-service:
+#            token-uri: ${spring.security.oauth2.resource-server.jwt.issuer-uri}/oauth2/token
+#
+#  cloud:
+#    openfeign:
+#      oauth2:
+#        enabled: true
+#        clientRegistrationId: ${spring.application.name}
+#
+#  kafka:
+#    bootstrap-servers: localhost:9000
+#
+#application:
+#  #  organization: organization-service
+#  organization: http://localhost:8010
+#
+#management:
+#  tracing:
+#    sampling:
+#      probability: 1.0
+#  zipkin:
+#    tracing:
+#      endpoint: http://localhost:8004/api/v2/spans
+#    kafka-sender:
+#      enabled: false
+#  endpoints:
+#    web:
+#      base-path: /actuator
+#      exposure:
+#        include: "*"
+#  endpoint:
+#    health:
+#      group:
+#        all:
+#          include: "*"
+#      show-details: always
+#      show-components: always
+#  health:
+#    circuit-breakers:
+#      enabled: true
+#
+#resilience4j:
+#  circuit-breaker:
+#    configs:
+#      default:
+#        register-health-indicator: true
+#        sliding-window-size: 5
+#        permitted-number-of-calls-in-half-open-state: 3
+#        sliding-window-type: COUNT_BASED
+#    instances:
+#      getCouriers:
+#        base-config: default
+#
+#logging:
+#  pattern:
+#    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
